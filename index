@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PISA & Active Learning Workshop Hub</title>
+    <!-- Google Fonts: Sarabun & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Global Success Toast Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-5 py-3 rounded-lg shadow-xl flex items-center space-x-3">
+        <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span id="toast-text" class="text-sm font-medium">คัดลอกข้อความไปยังคลิปบอร์ดแล้ว</span>
+    </div>
+
+    <!-- Main Header / Navigation Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo & Workshop branding -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-brand-600 text-white p-2 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-slate-900 tracking-tight">PISA & AL Workshop Hub</h1>
+                        <p class="text-xs text-slate-500 hidden sm:block">แพลตฟอร์มสนับสนุนกระบวนการออกแบบการเรียนรู้เชิงรุก</p>
+                    </div>
+                </div>
+
+                <!-- Day Switcher Tabs -->
+                <div class="flex space-x-1 bg-slate-100 p-1 rounded-xl">
+                    <button onclick="switchDay('day1')" id="nav-day1-btn" class="px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 text-slate-600 hover:text-slate-900">
+                        Day 1: ผู้บริหาร
+                    </button>
+                    <button onclick="switchDay('day2')" id="nav-day2-btn" class="px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 bg-white text-brand-700 shadow-sm border border-slate-200/50">
+                        Day 2: คุณครู
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- SECTION DAY 1: ADMINISTRATORS (HIDDEN BY DEFAULT) -->
+        <section id="section-day1" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-brand-800 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-md">
+                <span class="bg-brand-500/30 text-brand-200 text-xs px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider">Day 1 Focus</span>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-2">สำหรับผู้บริหาร (Administrators Workshop)</h2>
+                <p class="text-slate-300 mt-2 text-sm sm:text-base max-w-3xl">การขับเคลื่อนนโยบายเชิงสถิติ วิเคราะห์ความพร้อมของสถานศึกษาในการขับเคลื่อนทักษะการเรียนรู้เชิงรุก และเตรียมโครงสร้างพื้นฐานเพื่อรองรับกรอบการประเมิน PISA</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Admin Card 1 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md transition duration-200">
+                    <div class="bg-teal-50 text-teal-700 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 mb-2">1. การวางแผนขับเคลื่อนนโยบาย</h3>
+                    <p class="text-xs text-slate-500">กำหนดยุทธศาสตร์การพัฒนาครูตามแผนรายสัปดาห์ด้วยข้อมูลระดับจังหวัดและกลุ่มสถานศึกษา</p>
+                </div>
+                <!-- Admin Card 2 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md transition duration-200">
+                    <div class="bg-indigo-50 text-indigo-700 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.519 1.161-3.114 1.545-4.787"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 mb-2">2. มาตรฐานการสอบ CBT</h3>
+                    <p class="text-xs text-slate-500">สำรวจความพร้อมของห้องคอมพิวเตอร์และระบบเครือข่ายสำหรับรองรับชุดทดสอบอิงคอมพิวเตอร์</p>
+                </div>
+                <!-- Admin Card 3 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md transition duration-200">
+                    <div class="bg-rose-50 text-rose-700 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 mb-2">3. เครือข่าย PLC ระหว่างสถาบัน</h3>
+                    <p class="text-xs text-slate-500">สร้างความเข้มแข็งของชุมชนวิชาชีพ แลกเปลี่ยนสถิติความก้าวหน้ารายไตรมาสร่วมกัน</p>
+                </div>
+            </div>
+
+            <!-- Placeholder Informational Area -->
+            <div class="bg-slate-100 border border-slate-200 rounded-2xl p-6 text-center">
+                <p class="text-slate-600 text-sm">ส่วนนี้เป็นข้อมูลของ Day 1 ท่านสามารถเลือกสลับไปที่ <strong>"Day 2: คุณครู"</strong> ที่เมนูด้านบนเพื่อเริ่มต้นเวิร์กชอปการออกแบบแผนการสอน</p>
+            </div>
+        </section>
+
+        <!-- SECTION DAY 2: TEACHERS (ACTIVE BY DEFAULT) -->
+        <section id="section-day2" class="space-y-8 animate-fadeIn">
+            <!-- Hero banner for Day 2 -->
+            <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-indigo-950 text-white rounded-2xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-y-4 translate-x-4">
+                    <svg class="w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                </div>
+                <div class="relative z-10">
+                    <span class="bg-teal-500/30 text-teal-200 text-xs px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider">Day 2 Workshop</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold mt-2">Day 2: Teacher Workshop (Lesson Plan Design)</h2>
+                    <p class="text-slate-200 mt-2 text-sm sm:text-base max-w-4xl leading-relaxed">
+                        เซกชันปฏิบัติการสำหรับคุณครูในการออกแบบและยกระดับแผนการจัดการเรียนรู้เชิงรุก (Active Learning) บูรณาการเครื่องมือวิเคราะห์ทางสถิติเพื่อปิดรอยรั่วทางการเรียนรู้และรองรับสมรรถนะความฉลาดรู้ตามแนวทางประเมินผลระดับนานาชาติ
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sub Navigation Tabs for Day 2 -->
+            <div class="border-b border-slate-200">
+                <nav class="flex flex-wrap -mb-px space-x-1 sm:space-x-4" aria-label="Tabs">
+                    <button onclick="switchSubTab('zoning')" id="tab-btn-zoning" class="text-brand-600 border-brand-600 border-b-2 font-semibold px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap">
+                        <span class="text-lg">📦</span>
+                        <span>แหล่งข้อมูล (Data Zoning)</span>
+                    </button>
+                    <button onclick="switchSubTab('standard')" id="tab-btn-standard" class="text-slate-500 border-transparent border-b-2 hover:text-slate-700 hover:border-slate-300 font-medium px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap">
+                        <span class="text-lg">⚙️</span>
+                        <span>มีแผนการสอนเดิม (Standard Track)</span>
+                    </button>
+                    <button onclick="switchSubTab('rescue')" id="tab-btn-rescue" class="text-slate-500 border-transparent border-b-2 hover:text-slate-700 hover:border-slate-300 font-medium px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap">
+                        <span class="text-lg">🛡️</span>
+                        <span>สร้างแผนใหม่จากศูนย์ (Rescue Track)</span>
+                    </button>
+                    <button onclick="switchSubTab('analytics')" id="tab-btn-analytics" class="text-slate-500 border-transparent border-b-2 hover:text-slate-700 hover:border-slate-300 font-medium px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap">
+                        <span class="text-lg">📊</span>
+                        <span>ห้องวิเคราะห์ข้อมูล (PISA Analytics Room)</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- SUB-TAB 1: DATA ZONING -->
+            <div id="sub-content-zoning" class="space-y-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-slate-100 p-5 rounded-xl border border-slate-200/60">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-800">กรอบการวิเคราะห์แหล่งข้อมูลคุณครู (Data Zoning)</h3>
+                        <p class="text-xs text-slate-500">คุณครูสามารถใช้กรอบทั้ง 4 โซนในการสำรวจความพร้อมของชุดข้อมูลก่อนส่งให้ AI เพื่อใช้ประกอบการปรับปรุงเทมเพลตแผน</p>
+                    </div>
+                    <!-- Download Template button -->
+                    <button onclick="simulateDownload()" class="bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-medium text-sm px-5 py-2.5 rounded-lg shadow-sm flex items-center space-x-2 self-start lg:self-center transition duration-150">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <span>ดาวน์โหลดแบบฟอร์มแผนการสอน "เทมเพลต EVA_02"</span>
+                    </button>
+                </div>
+
+                <!-- 4-Grid Explanation Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Zone A -->
+                    <div class="bg-white border-l-4 border-l-brand-500 border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-brand-100 text-brand-800 text-xs px-2.5 py-1 rounded-md font-bold uppercase">Zone A</span>
+                                <span class="text-slate-400 text-xs font-medium">Core Curriculum</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-800 mb-2">หลักสูตรแกนกลาง และกรอบ PISA/MAIL</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                                รหัสตัวชี้วัด สาระการเรียนรู้แกนกลาง รวมถึงขอบเขตและเป้าหมายของกรอบทักษะประเมินผล เพื่อใช้เป็นหลักหมุดในการวัดความรอบรู้ของผู้เรียน
+                            </p>
+                        </div>
+                        <div class="text-xs text-brand-700 font-medium flex items-center space-x-1.5 bg-brand-50/50 p-2 rounded">
+                            <span>📌 แหล่งข้อมูล: คู่มือหลักสูตรสถานศึกษา และสาระการเรียนรู้แกนกลาง</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone B -->
+                    <div class="bg-white border-l-4 border-l-emerald-500 border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-md font-bold uppercase">Zone B</span>
+                                <span class="text-slate-400 text-xs font-medium">School Pain Point</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-800 mb-2">สรุปจุดอ่อนวิกฤตของโรงเรียน (1 หน้ากระดาษ)</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                                สถิติผลคะแนนการทดสอบ O-NET, NT และ RT ที่สกัดออกมาเจาะลึกเฉพาะรอยรั่วสำคัญของกลุ่มสาระโรงเรียน เพื่อแก้ไขปัญหาได้ตรงจุด
+                            </p>
+                        </div>
+                        <div class="text-xs text-emerald-700 font-medium flex items-center space-x-1.5 bg-emerald-50/50 p-2 rounded">
+                            <span>🔍 แหล่งข้อมูล: รายงานสารสนเทศผลสัมฤทธิ์ทางการเรียนของโรงเรียน</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone C -->
+                    <div class="bg-white border-l-4 border-l-indigo-500 border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-md font-bold uppercase">Zone C</span>
+                                <span class="text-slate-400 text-xs font-medium">Resources & Cases</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-800 mb-2">คู่มือ Active Learning และคลังข้อสอบ สสวท.</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                                แหล่งอ้างอิงสถานการณ์ รูปแบบกิจกรรมเชิงรุก (Active Learning Case Studies) และชุดคลังคำถามเชิงสถานการณ์เพื่อใช้ประเมินทักษะการคิดขั้นสูง
+                            </p>
+                        </div>
+                        <div class="text-xs text-indigo-700 font-medium flex items-center space-x-1.5 bg-indigo-50/50 p-2 rounded">
+                            <span>📘 แหล่งข้อมูล: ระบบคลังความรู้ Scimath และคู่มือแนวทางประเมิน PISA</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone D -->
+                    <div class="bg-white border-l-4 border-l-amber-500 border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-md font-bold uppercase">Zone D</span>
+                                <span class="text-slate-400 text-xs font-medium">Existing Material</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-800 mb-2">แผนการสอนเดิมของครู (ใส่แท็ก [Zone D])</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                                แผนการจัดการเรียนรู้เก่าที่คุณครูมีอยู่ ซึ่งนำมาเตรียมไว้สำหรับนำมาถอดประกอบ ปรับกระบวนการสอนแบบเดิมให้กลายมาเป็นกระบวนการเรียนรู้เชิงรุก
+                            </p>
+                        </div>
+                        <div class="text-xs text-amber-700 font-medium flex items-center space-x-1.5 bg-amber-50/50 p-2 rounded">
+                            <span>📄 แหล่งข้อมูล: เอกสารแผนเดิมของคุณครูในรูปแบบไฟล์ Word หรือ PDF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 2: STANDARD TRACK (ครูที่มีแผนการสอนเดิมมาด้วย) -->
+            <div id="sub-content-standard" class="hidden space-y-6">
+                <!-- Checklist Header Card -->
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center space-x-2">
+                        <span>📋</span>
+                        <span>เช็คลิสต์เตรียมความพร้อม (สำหรับ Standard Track)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">โปรดตรวจสอบให้แน่ใจว่าแหล่งข้อมูลของท่านพร้อมสมบูรณ์ครบทั้ง 4 โซนเพื่อประสิทธิภาพสูงสุดของผลลัพธ์จาก AI</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone A (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone B (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone C (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone D (พร้อม)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prompt Block UI -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800">Master Prompt สำเร็จรูป (สามารถคัดลอกไปใช้ใน AI ได้ทันที)</span>
+                        <button onclick="copyPrompt('prompt-standard-text', 'copy-btn-standard')" id="copy-btn-standard" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold py-1.5 px-3 rounded-md shadow-sm transition flex items-center space-x-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span class="copy-label">คัดลอก Master Prompt</span>
+                        </button>
+                    </div>
+
+                    <!-- Read-only Code view style -->
+                    <div class="relative bg-slate-900 rounded-xl p-5 border border-slate-800 text-slate-100 shadow-inner">
+                        <pre id="prompt-standard-text" class="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-mono custom-scrollbar overflow-x-auto select-all">ในฐานะ 'ผู้เชี่ยวชาญด้านการออกแบบการเรียนรู้เชิงรุก (Instructional Designer)' โปรดนำแผนการสอนเดิมของฉันในไฟล์ [Zone D] มาผ่าตัดอัปเกรด (Transform) โดยบูรณาการร่วมกับรอยรั่วสถิติใน [Zone B], ตัวชี้วัดแกนกลางใน [Zone A], และเทคนิคการสอน/สถานการณ์แนว PISA ใน [Zone C]
+
+โปรดเขียนโครงสร้างแผนการสอนขึ้นมาใหม่ทั้งหมดให้ตรงตาม 'เทมเพลตแผนการสอน EVA_02' โดยมีเงื่อนไขเหล็กดังนี้:
+1. ส่วนกิจกรรมการเรียนรู้ (ขั้นสอน): รื้อกิจกรรมบรรยายเดิมทิ้ง และแทนที่ด้วยเทคนิค Active Learning (จาก Zone C) โดยต้องสอดแทรก 'สถานการณ์ปัญหาที่ซับซ้อน' เพื่อฝึกทรรศนะการคิดและอุดรอยรั่วของเด็ก
+2. ส่วนการวัดและประเมินผล: ปรับให้มีการประเมินสมรรถนะการคิดขั้นสูง (Higher-Order Thinking) ที่รองรับการสอบบนคอมพิวเตอร์ (CBT)
+3. ส่วนสื่อและใบงานแนบท้าย: โปรดสร้าง 'ใบงาน 1 ชิ้น' ที่มีคำถามไล่ระดับความยาก (Level 1-6) และ 'แบบทดสอบท้ายคาบแนว PISA/CBT จำนวน 3 ข้อ' (พร้อมเฉลย) แนบไว้ตอนท้ายของแผน
+
+โปรดเจนเนอเรตเนื้อหาออกมาให้ครบถ้วนทุกหัวข้อ เพื่อให้ฉันก๊อปปี้ไปวางในไฟล์แบบฟอร์ม EVA_02 ได้ทันที</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 3: RESCUE TRACK (คุณครูที่ไม่มีแผนเดิมมาด้วย) -->
+            <div id="sub-content-rescue" class="hidden space-y-6">
+                <!-- Comforting Alert Box -->
+                <div class="bg-amber-50 border-l-4 border-l-amber-500 border border-amber-200 rounded-xl p-4 flex items-start space-x-3 shadow-sm">
+                    <span class="text-amber-600 text-xl flex-shrink-0 mt-0.5">💡</span>
+                    <div>
+                        <h4 class="font-bold text-amber-800 text-sm">ข้อแนะแนวเพิ่มเติมสำหรับคุณครู</h4>
+                        <p class="text-xs text-amber-700 leading-relaxed mt-1">
+                            สำหรับครูที่ไม่ได้นำไฟล์แผนการสอนเดิมมา ระบบจะช่วยท่านสร้างแผนการสอนคุณภาพสูงชิ้นใหม่จากศูนย์ขึ้นมาทันที (Zero-to-One) โดยอิงตามสาระสำคัญและรอยรั่วสถิติ
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Checklist UI -->
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center space-x-2">
+                        <span>📋</span>
+                        <span>เช็คลิสต์เตรียมความพร้อม (สำหรับ Rescue Track)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">ในสภาวะที่ไม่มีแผนการสอนเดิม ระบบจำเป็นต้องพึ่งพากรณีศึกษาทางสถิติและตัวชี้วัดเป้าหมายเพื่อการร่างแผนงาน</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone A (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone B (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-150">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span class="text-xs font-semibold text-slate-800">Zone C (พร้อม)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-rose-50 rounded-lg border border-rose-150">
+                            <span class="text-rose-600 font-bold">✗</span>
+                            <span class="text-xs font-semibold text-rose-800">Zone D (ไม่มีแผนเดิม)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prompt Block UI -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <span>Master Prompt สำเร็จรูป</span>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-200">ต้องกรอกหัวข้อเพิ่ม</span>
+                        </span>
+                        <button onclick="copyPrompt('prompt-rescue-text', 'copy-btn-rescue')" id="copy-btn-rescue" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold py-1.5 px-3 rounded-md shadow-sm transition flex items-center space-x-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span class="copy-label">คัดลอก Master Prompt</span>
+                        </button>
+                    </div>
+
+                    <!-- Read-only Code view style with highlighted sections -->
+                    <div class="relative bg-slate-900 rounded-xl p-5 border border-slate-800 text-slate-100 shadow-inner">
+                        <pre id="prompt-rescue-text" class="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-mono custom-scrollbar overflow-x-auto select-all">เนื่องจากฉันไม่ได้เตรียมไฟล์แผนการสอนมา ในฐานะ 'ผู้เชี่ยวชาญด้านการออกแบบการเรียนรู้' โปรดช่วยฉันสร้าง 'แผนการจัดการเรียนรู้ใหม่จากศูนย์ (Zero-to-One)' สำหรับ รายวิชา <span class="bg-amber-500/30 text-amber-200 border-b border-amber-400 px-1 py-0.5 rounded font-semibold">[พิมพ์ชื่อวิชาและระดับชั้นตรงนี้]</span> เรื่อง <span class="bg-amber-500/30 text-amber-200 border-b border-amber-400 px-1 py-0.5 rounded font-semibold">[พิมพ์หัวข้อหรือเรื่องที่จะสอนตรงนี้]</span>
+
+โปรดใช้รหัสตัวชี้วัดจาก [Zone A], วิเคราะห์จุดประสงค์เพื่ออุดรอยรั่วจาก [Zone B], และใช้ศาสตร์การสอน/สถานการณ์แนว PISA จาก [Zone C] มาเป็นฐานในการออกแบบ
+
+โปรดร่างแผนการสอนใหม่นี้ลงในโครงสร้าง 'เทมเพลตแผนการสอน EVA_02' ให้ครบทุกหัวข้อ โดยเน้นที่:
+1. กิจกรรมการเรียนรู้: ใช้เทคนิค Active Learning สอดแทรกสถานการณ์ปัญหา PISA (Context-based) ให้นักเรียนได้สืบเสาะและแก้ปัญหา
+2. การวัดและประเมินผล: ประเมินทักษะการคิดขั้นสูงที่เชื่อมโยงกับกรอบ PISA
+3. ส่วนสื่อและใบงานแนบท้าย: โปรดสร้าง 'ใบงาน 1 ชิ้น' ตามแนวทางความฉลาดรู้ และ 'แบบทดสอบท้ายคาบแนว CBT จำนวน 3 ข้อ' พร้อมเฉลย
+
+โปรดแสดงผลลัพธ์เป็นโครงสร้างที่สมบูรณ์ เพื่อให้ฉันคัดลอกลงเทมเพลต EVA_02 ได้ทันที</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 4: PISA DATA ANALYTICS ROOM -->
+            <div id="sub-content-analytics" class="hidden space-y-6">
+                <div class="bg-slate-100 p-5 rounded-xl border border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-800">ห้องสกัดวิเคราะห์สถิติจุดอ่อนโรงเรียน (PISA Data Analytics Room)</h3>
+                        <p class="text-xs text-slate-500">สำหรับคุณครูในการเตรียมข้อมูลสำหรับนำมากรอกในฐานข้อมูล [Zone B] โดยวิเคราะห์และขุดรอยรั่วสำคัญของสถิติโรงเรียนของท่าน</p>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-full font-bold self-start sm:self-auto">Zone B Builder</span>
+                </div>
+
+                <!-- Prompt Block UI -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <span>Prompt ค้นหาและรายงานวิเคราะห์ความบกพร่อง</span>
+                            <span class="bg-indigo-150 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-indigo-200">วิเคราะห์จังหวัดทดแทน</span>
+                        </span>
+                        <button onclick="copyPrompt('prompt-analytics-text', 'copy-btn-analytics')" id="copy-btn-analytics" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold py-1.5 px-3 rounded-md shadow-sm transition flex items-center space-x-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span class="copy-label">คัดลอก Prompt สถิติ</span>
+                        </button>
+                    </div>
+
+                    <!-- Read-only Code view style with highlighted sections -->
+                    <div class="relative bg-slate-900 rounded-xl p-5 border border-slate-800 text-slate-100 shadow-inner">
+                        <pre id="prompt-analytics-text" class="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-mono custom-scrollbar overflow-x-auto select-all">ในฐานะ 'นักวิเคราะห์ข้อมูลสถิติทางการศึกษา' โปรดสแกนคลังไฟล์ข้อมูลสถิติตัวชี้วัด O-NET, NT และ RT ทั้งหมดในระบบ เพื่อค้นหาและสกัดข้อมูลเฉพาะของ 'โรงเรียน <span class="bg-brand-500/30 text-brand-200 border-b border-brand-400 px-1 py-0.5 rounded font-semibold">[พิมพ์ชื่อโรงเรียนตนเองตรงนี้]</span>' 
+
+[เงื่อนไขการทำงานพิเศษ (If/Else Logic)]:
+* กรณีที่ 1: หากค้นพบผลคะแนนของโรงเรียนนี้ ให้ทำการวิเคราะห์รอยรั่วโดยใช้ข้อมูลของโรงเรียนเป็นหลัก
+* กรณีที่ 2: หากค้นหา ไม่พบ ผลคะแนนของโรงเรียนนี้ (อาจเนื่องจากไม่ได้เข้าร่วมสอบ) โปรดอย่าหยุดทำงาน แต่ให้เปลี่ยนไปใช้ข้อมูล 'ภาพรวมระดับจังหวัดนครราชสีมา' จากไฟล์ผลการประเมิน (RT) และรายงานผลการทดสอบ (NT) เพื่อเป็นฐานข้อมูลตัวแทนในการวิเคราะห์แทน
+
+โปรดสรุปผลลัพธ์ออกมาเป็น 'รายงานสลักแผลวิกฤต 1 หน้ากระดาษ' ตามหัวข้อต่อไปนี้:
+
+1. สถานะข้อมูลและสาระวิกฤต:
+แจ้งให้ทราบว่ากำลังใช้ข้อมูลของโรงเรียน หรือ ใช้ข้อมูลภาพรวมของจังหวัดโคราช จากนั้นระบุว่ากลุ่มสาระวิชาใด หรือสาระการเรียนรู้อันไหนที่มีคะแนนเฉลี่ยต่ำที่สุด
+
+2. เจาะลึกรอยรั่วรายตัวชี้วัด (Targeted Indicators):
+ระบุรหัสตัวชี้วัด (เช่น ค 2.1 ป.6/2) และข้อความอธิบายตัวชี้วัดที่วิกฤตที่สุดมา 3 - 5 อันดับแรก
+
+3. บทวิเคราะห์ทักษะการคิดขั้นสูง (PISA Gap Analysis):
+นำรอยรั่วในข้อ 2 มาเทียบกับกรอบสมรรถนะความฉลาดรู้ PISA แล้ววิเคราะห์ว่าผู้เรียนกำลังขาดทักษะกระบวนการคิดขั้นสูงในลักษณะใด
+
+โปรดเขียนสรุปเป็นภาษาทางการที่กระชับ เพื่อให้ฉันคัดลอก (Copy) นำไปใช้เป็นฐานข้อมูล Zone B สำหรับอุดรอยรั่วในการออกแบบแผนการสอนต่อไป</pre>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2025 PISA & Active Learning Workshop Hub. สงวนลิขสิทธิ์ตามนโยบายกระทรวงศึกษาธิการ</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JS logic -->
+    <script>
+        // Tab controller for Day 1 vs Day 2
+        function switchDay(day) {
+            const sectionDay1 = document.getElementById('section-day1');
+            const sectionDay2 = document.getElementById('section-day2');
+            const navDay1Btn = document.getElementById('nav-day1-btn');
+            const navDay2Btn = document.getElementById('nav-day2-btn');
+
+            if (day === 'day1') {
+                sectionDay1.classList.remove('hidden');
+                sectionDay2.classList.add('hidden');
+                
+                // Style updates
+                navDay1Btn.className = "px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 bg-white text-brand-700 shadow-sm border border-slate-200/50";
+                navDay2Btn.className = "px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 text-slate-600 hover:text-slate-900";
+            } else {
+                sectionDay1.classList.add('hidden');
+                sectionDay2.classList.remove('hidden');
+
+                // Style updates
+                navDay2Btn.className = "px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 bg-white text-brand-700 shadow-sm border border-slate-200/50";
+                navDay1Btn.className = "px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 text-slate-600 hover:text-slate-900";
+            }
+        }
+
+        // Subtab controller inside Day 2
+        function switchSubTab(subTab) {
+            const tabs = ['zoning', 'standard', 'rescue', 'analytics'];
+            
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-btn-${tab}`);
+                const content = document.getElementById(`sub-content-${tab}`);
+                
+                if (tab === subTab) {
+                    btn.className = "text-brand-600 border-brand-600 border-b-2 font-semibold px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "text-slate-500 border-transparent border-b-2 hover:text-slate-700 hover:border-slate-300 font-medium px-4 py-3 text-sm flex items-center space-x-2 whitespace-nowrap";
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        // Clipboard copying helper
+        function copyPrompt(preId, buttonId) {
+            const codeBlock = document.getElementById(preId);
+            const button = document.getElementById(buttonId);
+            const labelSpan = button.querySelector('.copy-label');
+            
+            // Temporary hidden textarea for seamless copying (safari backup compatibility)
+            const el = document.createElement('textarea');
+            el.value = codeBlock.innerText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Change button visual feedback
+            labelSpan.textContent = "คัดลอกเรียบร้อยแล้ว!";
+            button.classList.remove('bg-brand-600', 'hover:bg-brand-700');
+            button.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+            
+            // Show toast notification
+            showToast("คัดลอกเนื้อหา Master Prompt แล้ว! สามารถนำไปวางที่หน้าต่างแชต AI ได้ทันที");
+
+            setTimeout(() => {
+                labelSpan.textContent = buttonId === 'copy-btn-analytics' ? "คัดลอก Prompt สถิติ" : "คัดลอก Master Prompt";
+                button.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                button.classList.add('bg-brand-600', 'hover:bg-brand-700');
+            }, 3000);
+        }
+
+        // Simulated Download Handler
+        function simulateDownload() {
+            showToast("กำลังเริ่มดาวน์โหลดแบบฟอร์มเทมเพลตแผนการสอน EVA_02.docx...");
+            
+            // Creates dummy download element
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent("[แบบฟอร์มเทมเพลตแผนการสอน EVA_02 - เอกสารร่างสำหรับใช้งานในกิจกรรมกลุ่มเวิร์กชอป]"));
+            dlAnchorElem.setAttribute("download", "เทมเพลตแผนการสอน_EVA_02.docx");
+            dlAnchorElem.click();
+        }
+
+        // Toast controller
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
